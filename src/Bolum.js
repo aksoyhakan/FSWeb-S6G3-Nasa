@@ -24,7 +24,11 @@ const Bolum = (props) => {
           {gidenData.title}
         </p>
         <div>
-          <img src={gidenData.url}></img>
+          <img
+            style={{ width: "75%" }}
+            src={gidenData.url}
+            alt="Yüklenen Foto"
+          ></img>
         </div>
         <p>Copyright: {gidenData.copyright}</p>
         <p style={{ textAlign: "left", textDecoration: "underline" }}>

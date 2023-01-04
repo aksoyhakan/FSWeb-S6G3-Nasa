@@ -27,7 +27,7 @@ function App() {
         setInfo(response.data);
       })
       .catch((error) => console.log(error));
-  }, []);
+  }, [date]);
 
   function pickDate(callbackDate) {
     let arrayDate = callbackDate.split("-");

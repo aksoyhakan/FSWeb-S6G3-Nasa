@@ -1,9 +1,11 @@
 import React from "react";
-import "./App.css";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import Bolum from "./Bolum";
+import DateSelector from "./DateSelector";
+import styled from "styled-components";
 
+let i = 0;
 function App() {
   let todayDate = new Date();
   let day = todayDate.getDate();
@@ -14,14 +16,23 @@ function App() {
     month: month,
     day: day,
   };
+  const firstInfo = {
+    copyright: "Stefan Thrun",
+    date: "2023-01-05",
+    explanation:
+      "Hurtling through a cosmic dust cloud a mere 400 li… 20 light-years across the Pleiades star cluster.",
+    hdurl:
+      "https://apod.nasa.gov/apod/image/2301/M_45_Plejarden_Stefan_Thrun_klein4096.jpg",
+    media_type: "image",
+  };
 
-  const [info, setInfo] = useState({});
+  const [info, setInfo] = useState(firstInfo);
   const [date, setDate] = useState(dateObj);
 
   useEffect(() => {
     axios
       .get(
-        `https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=${date.year}-${date.month}-${date.day}`
+        `https://api.nasa.gov/planetary/apod?api_key=Lrt2sRpRaFto3VKwxOjhV5KIhvc46lYvRGmdScjW&date=${date.year}-${date.month}-${date.day}`
       )
       .then((response) => {
         setInfo(response.data);
@@ -38,24 +49,21 @@ function App() {
     };
     setDate(objDate);
   }
-  console.log(date);
-  console.log(
-    `https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY&date=${date.year}-${date.month}-${date.day}`
-  );
+
+  const SCAppDiv = styled.div`
+    max-width: 1200px;
+    height: auto;
+    border: 0.5rem solid black;
+    padding: 2rem;
+    margin: 3rem auto;
+  `;
+
   return (
-    <div className="App">
-      <label for="dateSelection">Select Date: </label>
-      <input
-        type="date"
-        id="dateSelection"
-        name="dateSelectionNasa"
-        onChange={(event) => {
-          pickDate(event.target.value);
-        }}
-      ></input>
+    <SCAppDiv>
+      <DateSelector counter={i} dateFunction={pickDate} />
       <Bolum gidenData={info} />
-    </div>
+    </SCAppDiv>
   );
 }
-
+i++;
 export default App;
